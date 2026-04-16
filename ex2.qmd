@@ -1,0 +1,38 @@
+---
+title: "Ex2"
+---
+
+## Exercício 2:
+
+## . exemplos: 
+
+```{r}
+#| echo: true       # Mostra o código (padrão: true)
+#| eval: true       # Executa o código (padrão: true)
+#| warning: false   # Oculta avisos
+#| message: false   # Oculta mensagens
+#| fig-cap: "Meu gráfico"  # Legenda para figuras
+
+plot(1:10)
+```
+
+```{r}
+# Dados simulados de riqueza de espécies em fragmentos
+set.seed(42)
+area_fragmento <- c(10, 25, 50, 100, 200, 500, 1000, 2000)
+riqueza        <- round(15 * log(area_fragmento) + rnorm(8, 0, 3))
+
+# Gráfico simples de relação espécie-área
+plot(
+  area_fragmento, riqueza,
+  xlab = "Área do fragmento (ha)",
+  ylab = "Riqueza de espécies",
+  main = "Relação Espécie-Área",
+  pch  = 19,
+  col  = "forestgreen",
+  cex  = 1.5
+)
+
+# Linha de tendência
+abline(lm(riqueza ~ log(area_fragmento)), col = "darkgreen", lty = 2)
+```
