@@ -11,3 +11,5 @@
 # Pastas de sistema
 .DS_Store
 Thumbs.db
+/.quarto/
+**/*.quarto_ipynb
