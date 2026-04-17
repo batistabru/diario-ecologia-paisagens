@@ -6,6 +6,8 @@ Neste exercício instalei os pacotes necessários e testei gerando os gráficos 
 
 ### - exemplos:
 
+1.  
+
 ```{r}
 library(terra)
 # Criar um raster de exemplo (paisagem simulada)
@@ -29,6 +31,19 @@ plot(r,
      main    = "Paisagem simulada — uso do solo",
      mar     = c(3, 3, 2, 6))
 ```
+
+1.  1\.
+
+```{r}
+# Informações do raster
+print(r)          # Dimensões, extensão, CRS
+res(r)            # Resolução espacial
+ext(r)            # Extensão geográfica
+ncell(r)          # Número total de células
+freq(r)           # Frequência de cada classe (tabela de área)
+```
+
+2.  
 
 ```{r}
 library(sf)
@@ -55,6 +70,8 @@ plot(st_geometry(parcelas), add = TRUE, pch = 21,
      bg = "red", cex = 1.5)
 ```
 
+3.  
+
 ```{r}
 library(landscapemetrics)
 library(terra)
@@ -70,6 +87,8 @@ check_landscape(paisagem)
 plot(paisagem)
 ```
 
+3.  1
+
 ```{r}
 # ---- Métricas de PATCH (nível de fragmento) ----
 
@@ -78,11 +97,15 @@ areas <- lsm_p_area(paisagem)
 head(areas)
 ```
 
+3.  2\.
+
 ```{r}
 # Distância ao vizinho mais próximo (isolamento)
 isolamento <- lsm_p_enn(paisagem)
 head(isolamento)
 ```
+
+3.  3\.
 
 ```{r}
 # ---- Métricas de CLASS (nível de classe) ----
@@ -92,11 +115,15 @@ proporcao <- lsm_c_pland(paisagem)
 print(proporcao)
 ```
 
+3.  4\.
+
 ```{r}
 # Total de borda por classe
 borda <- lsm_c_te(paisagem)
 print(borda)
 ```
+
+3.  5\.
 
 ```{r}
 # ---- Métricas de LANDSCAPE (nível de paisagem) ----
@@ -106,11 +133,15 @@ shannon <- lsm_l_shdi(paisagem)
 print(shannon)
 ```
 
+3.  6\.
+
 ```{r}
 # Área total
 area_total <- lsm_l_ta(paisagem)
 print(area_total)
 ```
+
+4.  
 
 ```{r}
 # Calcular várias métricas simultaneamente
@@ -128,20 +159,28 @@ metricas <- calculate_lsm(
 print(metricas)
 ```
 
+4.  1\.
+
 ```{r}
 # Listar TODAS as 130+ métricas disponíveis
 list_lsm()  # descomente para ver a lista completa
 ```
+
+4.  2\.
 
 ```{r}
 # Visualizar fragmentos rotulados por classe
 show_patches(paisagem, class = "all", labels = TRUE)
 ```
 
+4.  3\.
+
 ```{r}
 # Visualizar área de núcleo (interior dos fragmentos)
 show_cores(paisagem, class = c(1, 2))
 ```
+
+4.  4\.
 
 ```{r}
 #| eval: true
@@ -177,6 +216,8 @@ tm_shape(r) +
   tm_scalebar()
 ```
 
+4.  5
+
 ```{r}
 #| eval: true
 #| warning: false
@@ -196,6 +237,8 @@ tm_shape(r) +
   tm_compass(position = c("right", "top"))
 ```
 
+5.  
+
 ```{r}
 library(vegan)
 
@@ -212,6 +255,8 @@ comunidades <- matrix(
 
 comunidades
 ```
+
+5.  1
 
 ```{r}
 # ---- Diversidade alfa ----
@@ -230,6 +275,8 @@ print(resultados_div)
 
 ```
 
+5.  2\.
+
 ```{r}
 # ---- Ordenação (NMDS) ----
 nmds <- metaMDS(comunidades, distance = "bray", 
@@ -239,12 +286,16 @@ cat("Stress do NMDS:", round(nmds$stress, 3), "\n")
 
 ```
 
+5.  3\.
+
 ```{r}
 # Stress < 0.1 = excelente; < 0.2 = bom; > 0.3 = problemático
 
 # Visualizar
 plot(nmds, type = "t", main = "NMDS — Composição de Comunidades")
 ```
+
+6.  
 
 ```{r}
 #| eval: true
@@ -302,6 +353,8 @@ mesmo retirando "\<" ainda continuava dando erro, por isso troquei para a seguin
 
 </div>
 ::::
+
+6.  1\.
 
 ```{r}
 # Verificar versão do R
