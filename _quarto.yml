@@ -8,20 +8,24 @@ website:
     left:
       - href: index.qmd
         text: Início
-      - href: relatorio_aula1.qmd
-        text: "Relatório — Aula 1"
-      - href: relatorio_aula2.qmd
-        text: "Relatório — Aula 2"
-      - href: relatorio_aula3.qmd
-        text: "Relatório — Aula 3"
-      - href: ex1.qmd
-        text: "EX1"
-      - href: ex2.qmd
-        text: "EX2"
-      - href: ex3.qmd
-        text: "EX3"
-      - href: ex4.qmd
-        text: "EX4"
+      - text: "Relatórios"
+        menu:
+         - href: relatorio_aula1.qmd
+           text: "Relatório — Aula 1"
+         - href: relatorio_aula2.qmd
+           text: "Relatório — Aula 2"
+         - href: relatorio_aula3.qmd
+           text: "Relatório — Aula 3"
+      - text: "Exercícios"
+        menu:
+         - href: ex1.qmd
+           text: "EX1"
+         - href: ex2.qmd
+           text: "EX2"
+         - href: ex3.qmd
+           text: "EX3"
+         - href: ex4.qmd
+           text: "EX4"
       - about.qmd
 
 format:
@@ -30,5 +34,5 @@ format:
       - cosmo
       - brand
     toc: true
-
+    self-contained: true
 editor: visual

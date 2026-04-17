@@ -6,7 +6,6 @@
 # Cache do Quarto
 .quarto/
 *_cache/
-*_files/
 
 # Pastas de sistema
 .DS_Store

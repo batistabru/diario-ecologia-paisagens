@@ -4,6 +4,8 @@ title: "Ex2"
 
 ## Exercício 2:
 
+Fazer o workbook da disciplina e testar
+
 ## . exemplos: 
 
 ```{r}

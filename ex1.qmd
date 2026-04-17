@@ -2,7 +2,7 @@
 title: "Ex1"
 ---
 
-## Exercício 1
+## Exercício 1:
 
 ### Parte 1:
 
