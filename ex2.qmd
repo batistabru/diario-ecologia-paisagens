@@ -1,5 +1,5 @@
 ---
-title: "Exercício 2:"
+title: "Exercício 2"
 ---
 
 Fazer o workbook da disciplina e testar

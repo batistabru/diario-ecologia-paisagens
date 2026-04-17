@@ -1,5 +1,5 @@
 ---
-title: "Exercício 1:"
+title: "Exercício 1"
 ---
 
 ### 1. 
