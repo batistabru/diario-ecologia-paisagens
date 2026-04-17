@@ -1,12 +1,12 @@
 ---
-title: "Ex2"
+title: "Exercício 2:"
 ---
-
-## Exercício 2:
 
 Fazer o workbook da disciplina e testar
 
-## . exemplos: 
+## - exemplos:
+
+1.  
 
 ```{r}
 #| echo: true       # Mostra o código (padrão: true)
@@ -17,6 +17,8 @@ Fazer o workbook da disciplina e testar
 
 plot(1:10)
 ```
+
+2.  
 
 ```{r}
 # Dados simulados de riqueza de espécies em fragmentos

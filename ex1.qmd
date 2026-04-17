@@ -1,22 +1,20 @@
 ---
-title: "Ex1"
+title: "Exercício 1:"
 ---
 
-## Exercício 1:
+### 1. 
 
-### Parte 1:
+![Paisagem da janela atrás do Niate CFCH/CCSA para o CCSA](images/20260409_201735.png){width="70%"}
 
-![Paisagem da janela atrás do Niate CFCH/CCSA para o CCSA](20260409_201735.png){alt="Paisagem da janela atrás do Niate CFCH/CCSA para o CCSA"}
+### 2. 
 
-### Parte 2: 
-
-![Exercício de transmutação](20260409_201759.png){alt="Exercício de transmutação"}
+![Exercício de transmutação](images/20260409_201759.png){width="70%"}
 
 Matriz antrópica em marrom e fragmento em verde. Os quadrantes brancos são aqueles com maior presença de grama. (Ainda não sei se nesse contexto seria um corredor, porque nesse recorte não conecta o fragmento, mas sei que ao lado tem outra área com poucas árvores e que poderia configurar um corredor para determinadas espécies)
 
-### Parte 3:
+### 3. 
 
-![Lente biológica: Paisagem do ponto de vista de um gafanhoto](20260409_201825.png){alt="Lente biológica: Paisagem do ponto de vista de um gafanhoto"}
+![Lente biológica: Paisagem do ponto de vista de um gafanhoto](images/20260409_201825.png){width="70%"}
 
 ### Questões:
 

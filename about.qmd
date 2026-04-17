@@ -1,3 +1,7 @@
 ---
 title: "About"
 ---
+
+## Sobre mim
+
+Sou estudante de graduação do Curso de Ciências Biológicas - bacharelado na Universidade Federal de Pernambuco (UFPE) e estagiária no Laboratório de Ecologia Comportamento e Conservação (LECC - UFPE).

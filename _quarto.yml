@@ -5,7 +5,9 @@ project:
 website:
   title: "Diário de Ecologia de Paisagens - Bruna Batista"
   navbar:
-    left:
+    background: "#2f4f4f"
+    type: dark
+    right:
       - href: index.qmd
         text: Início
       - text: "Relatórios"
@@ -30,9 +32,8 @@ website:
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
+    css: styles.css
     toc: true
-    self-contained: true
-editor: visual
+    code-fold: true        # Adiciona a caixinha de "clicar para ver"
+    code-summary: "Mostrar código"

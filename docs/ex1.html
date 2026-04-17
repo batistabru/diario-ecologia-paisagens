@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ex1 – Diário de Ecologia de Paisagens - Bruna Batista</title>
+<title>Exercício 1: – Diário de Ecologia de Paisagens - Bruna Batista</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-09a4fea7ef12d22236ce7d76bf24586e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,6 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -90,39 +91,53 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Início</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./relatorio_aula1.html"> 
-<span class="menu-text">Relatório — Aula 1</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-relatórios" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Relatórios</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-relatórios">    
+        <li>
+    <a class="dropdown-item" href="./relatorio_aula1.html">
+ <span class="dropdown-text">Relatório — Aula 1</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./relatorio_aula2.html"> 
-<span class="menu-text">Relatório — Aula 2</span></a>
+        <li>
+    <a class="dropdown-item" href="./relatorio_aula2.html">
+ <span class="dropdown-text">Relatório — Aula 2</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./relatorio_aula3.html"> 
-<span class="menu-text">Relatório — Aula 3</span></a>
+        <li>
+    <a class="dropdown-item" href="./relatorio_aula3.html">
+ <span class="dropdown-text">Relatório — Aula 3</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./ex1.html" aria-current="page"> 
-<span class="menu-text">EX1</span></a>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercícios</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-exercícios">    
+        <li>
+    <a class="dropdown-item" href="./ex1.html">
+ <span class="dropdown-text">EX1</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ex2.html"> 
-<span class="menu-text">EX2</span></a>
+        <li>
+    <a class="dropdown-item" href="./ex2.html">
+ <span class="dropdown-text">EX2</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ex3.html"> 
-<span class="menu-text">EX3</span></a>
+        <li>
+    <a class="dropdown-item" href="./ex3.html">
+ <span class="dropdown-text">EX3</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ex4.html"> 
-<span class="menu-text">EX4</span></a>
+        <li>
+    <a class="dropdown-item" href="./ex4.html">
+ <span class="dropdown-text">EX4</span></a>
   </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
@@ -143,13 +158,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercício-1" id="toc-exercício-1" class="nav-link active" data-scroll-target="#exercício-1">Exercício 1</a>
-  <ul class="collapse">
-  <li><a href="#parte-1" id="toc-parte-1" class="nav-link" data-scroll-target="#parte-1">Parte 1:</a></li>
-  <li><a href="#parte-2" id="toc-parte-2" class="nav-link" data-scroll-target="#parte-2">Parte 2:</a></li>
-  <li><a href="#parte-3" id="toc-parte-3" class="nav-link" data-scroll-target="#parte-3">Parte 3:</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">1.</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2.</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3.</a></li>
   <li><a href="#questões" id="toc-questões" class="nav-link" data-scroll-target="#questões">Questões:</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -158,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ex1</h1>
+<h1 class="title">Exercício 1:</h1>
 </div>
 
 
@@ -175,32 +187,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercício-1" class="level2">
-<h2 class="anchored" data-anchor-id="exercício-1">Exercício 1</h2>
-<section id="parte-1" class="level3">
-<h3 class="anchored" data-anchor-id="parte-1">Parte 1:</h3>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1.</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="20260409_201735.png" class="img-fluid figure-img"></p>
+<p><img src="images/20260409_201735.png" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Paisagem da janela atrás do Niate CFCH/CCSA para o CCSA</figcaption>
 </figure>
 </div>
 </section>
-<section id="parte-2" class="level3">
-<h3 class="anchored" data-anchor-id="parte-2">Parte 2:</h3>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2.</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="20260409_201759.png" class="img-fluid figure-img"></p>
+<p><img src="images/20260409_201759.png" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Exercício de transmutação</figcaption>
 </figure>
 </div>
 <p>Matriz antrópica em marrom e fragmento em verde. Os quadrantes brancos são aqueles com maior presença de grama. (Ainda não sei se nesse contexto seria um corredor, porque nesse recorte não conecta o fragmento, mas sei que ao lado tem outra área com poucas árvores e que poderia configurar um corredor para determinadas espécies)</p>
 </section>
-<section id="parte-3" class="level3">
-<h3 class="anchored" data-anchor-id="parte-3">Parte 3:</h3>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3.</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="20260409_201825.png" class="img-fluid figure-img"></p>
+<p><img src="images/20260409_201825.png" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Lente biológica: Paisagem do ponto de vista de um gafanhoto</figcaption>
 </figure>
 </div>
@@ -214,7 +224,6 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

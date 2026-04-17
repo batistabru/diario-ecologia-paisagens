@@ -1,7 +1,7 @@
 ---
 title: "Diário de Ecologia de Paisagens"
 subtitle: "BO-304 | UFPE | 2026.1"
-AUTHOR: "Bruna Batista"
+author: "Bruna Batista"
 ---
 
 ## Sobre este diário
@@ -17,9 +17,3 @@ Aqui você encontrará:
 \- 🌿 Reflexões sobre Ecologia de Paisagens
 
 \- 📝 Resolução de exercícios
-
-## Sobre mim
-
-Sou estudante de graduação do Curso de Ciências Biológicas - bacharelado na Universidade Federal de Pernambuco (UFPE) e estagiária no Laboratório de Ecologia Comportamento e Conservação (LECC - UFPE).
-
-## 

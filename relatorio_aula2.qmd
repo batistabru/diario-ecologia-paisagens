@@ -1,5 +1,3 @@
 ---
-title: "relatorio_aula2.qmd"
+title: "Relatório aula 2"
 ---
-
-Coisas da aula 2.com

@@ -1,12 +1,10 @@
 ---
-title: "Ex3"
+title: "Exercício 2:"
 ---
-
-## Exercício 3:
 
 Neste exercício instalei os pacotes necessários e testei gerando os gráficos abaixo
 
-### . exemplos:
+### - exemplos:
 
 ```{r}
 library(terra)
