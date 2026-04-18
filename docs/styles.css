@@ -14,7 +14,7 @@ h1, h2, h3, h4 {
 
 /* 3. Personalização da Navbar (Background Verde Floresta) */
 .navbar {
-  background-color darkslategray !important; /* A cor que escolhemos */
+  background-color: darkslategray !important; /* A cor que escolhemos */
   border-bottom: 3px solid #E09F3E;    /* Linha dourada um pouco mais grossa para destaque */
   padding-top: 10px;
   padding-bottom: 10px;
@@ -56,6 +56,18 @@ h1, h2, h3, h4 {
   border-left: 2px solid #FFF3B0 !important; /* Barrinha lateral Dourada */
   font-weight: 600;
   background-color: rgba(255, 215, 0, 0.05); /* Um fundo dourado quase invisível */
+}
+
+
+/* 9. Tópico Ativo e Hover (Corrigido para vencer o azul do tema) */
+.sidebar nav[role=doc-toc] ul li a:hover,
+.sidebar nav[role=doc-toc] ul li a.active,
+nav[role=doc-toc] ul li a:active,
+nav[role=doc-toc] ul li a.active {
+  color: #9E2A2B !important;           /* Seu Vermelho/Vinho */
+  border-left: 2px solid #FFF3B0 !important; 
+  font-weight: 600 !important;
+  background-color: rgba(158, 42, 43, 0.05) !important; /* Fundo avermelhado bem leve */
 }
 
 /* 10. Remove a borda padrão cinza para usar apenas a nossa dourada */
