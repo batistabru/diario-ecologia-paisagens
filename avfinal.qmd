@@ -484,8 +484,7 @@ print(grafico_evolucao) #plotar
 ggsave("grafico_fragmentacao.png", plot = grafico_evolucao, width = 8, height = 6, dpi = 300)
 ```
 
-# 
-Parte 2: Diagnóstico Ecológico
+# Parte 2: Diagnóstico Ecológico
 
 ## Conectividade e Metapopulações, **Efeito de borda, Produtividade primária e estoque de carbono, Heterogeneidade e diversidade beta**
 
