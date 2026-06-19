@@ -4,7 +4,7 @@ title: "Exercício 4"
 
 # **Amostragem de Paisagens com Restrição de Borda — Murici-AL**
 
-## 1. 
+## 1.
 
 ```{r}
 library(terra)

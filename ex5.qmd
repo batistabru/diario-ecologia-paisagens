@@ -1,0 +1,250 @@
+---
+title: "Exercício 5"
+editor: visual
+editor_options: 
+  chunk_output_type: console
+execute:
+  freeze: auto 
+---
+
+# **Consultoria Técnica para Criação de Unidades de Conservação (UCs)**
+
+Vocês foram contratados pela Secretaria de Meio Ambiente de um estado brasileiro para realizar um diagnóstico da estrutura da paisagem de um município estratégico. O objetivo da consultoria é fundamentar tecnicamente a **criação de novas Unidades de Conservação**, identificando áreas que possuam características espaciais favoráveis à manutenção da biodiversidade e à integridade dos processos ecológicos.
+
+# Município escolhido: Mataraca (PB)
+
+O município de Mataraca está localizado no litoral norte do estado da Paraíba, está a aproximadamente 110 km de distância da capital do estado e a faz fronteira com o estado do Rio Grande do Norte. A área abriga parques eólicos, fragmentos de Mata Atlântica, uma mina desativada, além de possuir regiões de mangue e várzea. Mata Paraibana é a mesorregião em que se insere com o bioma predominante de Mata Atlântica e matriz de cana-de-açúcar.
+
+De acordo com dados do IBGE, a população estimada de 2025 era de 8650 distribuída em um território de 182,439km², o que culmina numa densidade demográfica estimada em 47,41 habitantes por km². Outro dado importante retirado do IBGE, é que em 2022 a cidade possuía uma população indígena de 1000 pessoas, cerca de 12% da população no mesmo ano.
+
+Através do RStudio foi possível abrir o arquivo de raster de cobertura do solo de Mataraca baixado pelo MapBiomas. No software, foi feito o mapa abaixo com as coordenadas em UTM (EPSG:31985) e 14 categorias de uso do solo.
+
+```{r}
+
+library(terra) 
+library(tidyverse) 
+library(tidyterra) 
+library(landscapemetrics) 
+library(dplyr) 
+r_mataraca <- rast("2024covmataraca.tif")
+crs(r_mataraca) #ver se tá em graus
+r_utmm <- project(r_mataraca, "EPSG:31985", method = "near")
+
+legenda <- data.frame(
+  id = c(3, 4, 5, 11, 15, 20, 21, 23, 24, 25, 33, 41, 48, 50),
+  
+  Categoria = c("Formação Florestal", 
+                "Formação Savânica", 
+                "Mangue", 
+                "Campo Alagado", 
+                "Pastagem", 
+                "Cana", 
+                "Mosaico de Usos", 
+                "Praia, Duna e Areal", 
+                "Área Urbanizada", 
+                "Outras Áreas não Vegetadas", 
+                "Corpo d'Água", 
+                "Outras Lavouras Temporárias", 
+                "Outras Lavouras Perenes", 
+                "Restinga Herbácea"),
+                
+  Cores = c("#006400",  # 3. Floresta (Verde escuro)
+            "#7cfc00",  # 4. Savânica (Verde claro)
+            "#687537",  # 5. Mangue (Verde oliva)
+            "#00ffff",  # 11. Campo Alagado (Ciano)
+            "#ffff00",  # 15. Pastagem (Amarelo)
+            "#9932CC",  # 20. Cana (Roxo vibrante, como combinamos)
+            "#f4a460",  # 21. Mosaico de usos (Laranja/Areia)
+            "#ffda9e",  # 23. Praia e Duna (Pêssego/Areia claro)
+            "#ff0000",  # 24. Área Urbanizada (Vermelho)
+            "#d3d3d3",  # 25. Outras não vegetadas (Cinza claro)
+            "#0000ff",  # 33. Água (Azul)
+            "#e787f8",  # 41. Outras Lavouras Temporárias (Lilás/Rosa)
+            "#d082de",  # 48. Outras Lavouras Perenes (Roxo claro)
+            "#c8d068")  # 50. Restinga (Verde amarelado)
+)
+
+# Aplica a nova legenda completassa ao mapa
+levels(r_utmm) <- legenda[,1:2]
+
+vetor_total <- as.polygons(r_utmm, dissolve = TRUE)
+municipio_limite <- aggregate(vetor_total)
+limite_seguro <- buffer(municipio_limite, width = -2000)
+
+floresta <- vetor_total[vetor_total$Categoria == "Formação Florestal", ]
+area_sorteio <- crop(floresta, limite_seguro)
+
+if (is.list(area_sorteio)) {
+  area_sorteio <- do.call(rbind, area_sorteio)
+}
+
+if (nrow(area_sorteio) == 0) {
+  stop("Erro: Nenhuma floresta encontrada a mais de 2km da borda.")
+}
+
+ggplot() +
+  geom_spatraster(data = r_utmm) +
+  scale_fill_manual(values = legenda$Cores, na.value = "white", name = "Uso do Solo") +
+  geom_spatvector(data = floresta, fill = "darkgreen", alpha = 0.3, color = NA)   +
+  geom_spatvector(data = area_sorteio, fill = "forestgreen", alpha = 0.5, color = NA) +
+  geom_spatvector(data = municipio_limite, fill = NA, color = "black", linewidth = 1) +
+  geom_spatvector(data = limite_seguro, fill = NA, color = "black", linetype = "dashed", linewidth = 1) +
+  
+  labs(title = "Área de sorteio (floresta > 2 km da borda)") +
+  theme_minimal()
+```
+
+Nessa etapa, foi definido 15 buffers de 500 metros, com distância mínima de 1000 metros e com uma zona de segurança de 2000 metros para dentro do limite do município para evitar que existam pontos com parte fora do limite territorial. Cada um desses buffers apresentam formação florestal no centro.
+
+```{r}
+#| message: false
+#| warning: false
+set.seed(1234)
+pontos_finais <- NULL
+tentativas <- 0
+
+while(is.null(pontos_finais) || nrow(pontos_finais) < 15) {
+  tentativas <- tentativas + 1
+  cand <- spatSample(area_sorteio, size = 1, method = "random")
+  
+  if (nrow(cand) > 0) {
+    if (is.null(pontos_finais)) {
+      pontos_finais <- cand
+    } else {
+      dists <- distance(cand, pontos_finais)
+      if (min(dists) >= 1000) { 
+        pontos_finais <- rbind(pontos_finais, cand)
+      }
+    }
+  }
+  
+  if (tentativas > 5000) break
+}
+
+# Verificar CRS
+if (!identical(crs(pontos_finais), crs(r_utmm))) {
+  pontos_finais <- project(pontos_finais, crs(r_utmm))
+}
+
+buffers <- buffer(pontos_finais, width = 500)
+buffers$id_paisagem <- 1:nrow(buffers)
+
+# Extração e processamento
+extracao <- terra::extract(r_utmm, buffers)
+nome_col_raster <- names(extracao)[2]
+
+tabela_final <- extracao %>%
+  rename(id_buffer = ID, categoria_bruta = !!sym(nome_col_raster)) %>%
+  group_by(id_buffer) %>%
+  mutate(total_px = n()) %>%
+  group_by(id_buffer, categoria_bruta) %>%
+  summarise(
+    pixels = n(),
+    percentagem = (pixels / first(total_px)) * 100,
+    .groups = "drop"
+  ) %>%
+  mutate(Categoria_Limpa = as.character(categoria_bruta)) %>%
+  left_join(legenda %>% select(Categoria, Cores), by = c("Categoria_Limpa" = "Categoria"))
+
+write.csv(tabela_final, "uso_solo_mataraca_final.csv", row.names = FALSE)
+writeVector(pontos_finais, "pontos_finalmataraca.shp", overwrite=TRUE)
+writeVector(buffers, "buffers_500m.shp", overwrite=TRUE)
+ggplot() +
+  geom_spatraster(data = r_utmm) +
+  scale_fill_manual(values = legenda$Cores, na.value = "white", name = "Uso do Solo") +
+  geom_spatvector(data = pontos_finais, color = "red", size = 2.75, shape = 19) +
+  geom_spatvector_text(data = pontos_finais, aes(label = 1:15), 
+                       color = "black", size = 3, vjust = -0.5, fontface = "bold") +
+  labs(title = "Pontos amostrais e buffers de 500 m de Mataraca (PB)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+#Para entender as categorias que estao faltado e seus respectivos valores
+# Faz um levantamento de todos os valores reais dentro do mapa
+valores_presentes <- freq(r_utmm)
+
+# Imprime a tabela no console para você ler
+print(valores_presentes)
+freq(as.numeric(r_utmm))
+```
+
+## Calculando as métricas
+
+Por meio das métricas diversidade de Shannon, percentual de floresta e densidade de borda é possível compreender a hetogeneidade de cada buffer, mensurar a quantidade de formação florestal nos pontos e quantificar o tamanho da borda para compreender a fragmentação do buffer, respectivamente.
+
+```{r}
+# Identificar o valor numérico da classe Floresta
+id_floresta <- legenda$id[legenda$Categoria == "Formação Florestal"]
+
+# Lista para armazenar métricas de cada buffer
+metricas_lista <- list()
+
+for(i in 1:nrow(buffers)) {
+  # Recortar o raster para o buffer i
+  crop_i <- crop(r_utmm, buffers[i,])
+  mask_i <- mask(crop_i, buffers[i,])
+  
+  # Calcular Shannon diversity (nível da paisagem)
+  shannon <- lsm_l_shdi(mask_i)
+  
+  # Calcular métricas de classe para todas as classes
+  pland_all <- lsm_c_pland(mask_i)   # percentual de cada classe
+  ed_all <- lsm_c_ed(mask_i)         # densidade de borda por classe
+  
+  # Filtrar apenas a classe floresta
+  pland_floresta <- pland_all %>% filter(class == id_floresta)
+  ed_floresta <- ed_all %>% filter(class == id_floresta)
+  
+  # Extrair valores (se não houver floresta, colocar NA ou 0)
+  div_shannon <- shannon$value
+  perc_floresta <- ifelse(nrow(pland_floresta) > 0, pland_floresta$value, 0)
+  dens_borda <- ifelse(nrow(ed_floresta) > 0, ed_floresta$value, NA)
+  
+  # Guardar
+  metricas_lista[[i]] <- data.frame(
+    id_buffer = i,
+    diversidade_shannon = div_shannon,
+    perc_floresta = perc_floresta,
+    densidade_borda_m_ha = dens_borda
+  )
+}
+
+# Combinar tudo
+metricas_paisagem <- bind_rows(metricas_lista)
+
+print(metricas_paisagem)
+```
+
+## Painel de paisagens
+
+Nesse painel, é possível visualizar com maior riqueza de detalhes da cobertura e uso do solo de cada buffer criado.
+
+```{r}
+lista_recortes <- list()
+for(i in 1:nrow(buffers)) {
+  crop_i <- crop(r_utmm, buffers[i, ])
+  mask_i <- mask(crop_i, buffers[i, ])
+  df_i <- as.data.frame(mask_i, xy = TRUE, cells = TRUE)
+  df_i$id_buffer <- paste("Paisagem", i)
+  lista_recortes[[i]] <- df_i
+}
+df_painel <- bind_rows(lista_recortes)
+
+ggplot(df_painel) +
+  geom_tile(aes(x = x, y = y, fill = Categoria)) +
+  scale_fill_manual(values = setNames(legenda$Cores, legenda$Categoria)) +
+  facet_wrap(~id_buffer, nrow = 3, ncol = 5, scales = "free") +
+  theme_minimal() +
+  labs(title = "Painel de Amostragem: 15 Paisagens de Mataraca-PB",
+       subtitle = "Recortes circulares de 500m de raio (Interior de Floresta)",
+       fill = "Uso do Solo") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "bottom")
+```
+
+Observando somente o percentual de cobertura florestal, o buffer com melhor integridade ecológica é o 5 com 42% de formação florestal e 42,9% de densidade de borda. O buffer 8 também apresenta mais de 40% de cobertura florestal, além de possuir a maior heterogeneidade na paisagem, com corpo d'água e campo alagado. Outro buffer importante ser ressaltado nesse sentido é o 14, mais isolado, mas que possui baixa densidade de borda em relação ao percentual de formação florestal (36,95% e 42,51%, respectivamente) comparando com os demais buffers
+
+Existem áreas sim que podem funcionar como conectividade funcional, sendo uma delas nos fragmentos mais próximos da área mais urbanizada de Mataraca, ao sul do município, com uma formação savânica entre o fragmento com os buffers 1, 15, 3 (sendo esse último com pouca cobertura vegetal) e o fragmento com o buffer 2. O próprio buffer 2 pode ser usado como ponto de conexão também com a área dos buffers 12 e 4. Além disso, seguindo mais ao norte do município o buffer 4 pode ser conectado ao fragmento do 6 através do campo alagado que há entre eles, a depender das condições desse campo, da sazonalidade e da espécie em questão. O campo alagado, nesse sentido também pode promover a conectividade entres os buffers 5, 6 e 13. O buffer 13 apresenta baixo percentual de formação florestal e maior parte desse ponto é constituído por campo alagado.
+
+Dessa forma, uma Área de Proteçao Ambiental deve ser criada na região dos buffers de 1 ao 13, incluindo os pontos 15, 3, 2, 12, 4 ,5, e 6.

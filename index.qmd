@@ -10,7 +10,7 @@ Este site é meu portfólio pessoal da disciplina **Ecologia de Paisagens** (BO-
 
 Aqui você encontrará:
 
-\- 📓 Anotações das aulas
+\- 📓 Atividades práticas das aulas
 
 \- 📊 Relatórios das análises em R
 

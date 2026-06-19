@@ -28,6 +28,10 @@ website:
            text: "EX3"
          - href: ex4.qmd
            text: "EX4"
+         - href: ex5.qmd
+           text: "EX5"
+      - text: "Avaliação final"
+      
       - about.qmd
 
 format:
